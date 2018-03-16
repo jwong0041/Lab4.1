@@ -35,12 +35,49 @@ public class Deck
 	}
 	
 	//dealing cards [move from undealt to dealt, return Card]
-	public String deal()
+	public Cards deal()
 	{
 		Cards r = unDealt.remove(0);
 		Dealt.add(r);
-		return r.toString();
+		return r;
 	}
 	
+	//shuffling randomly from last spot
+	public void shuffleRandom()
+	{
+			int k = unDealt.size();
+			
+			for(int y = k - 1; y >= 0; y--)
+			{
+				int r = (int)(Math.random()*(k-1));
+				
+				Cards temp = unDealt.get(y);
+				unDealt.set(y, unDealt.get(r));
+				unDealt.set(r, temp);
+			}
+	}
+	
+	//shuffling based on the largest value
+	public void shuffleBig()
+	{
+		int k = unDealt.size();
+		int bigInd = 0;
+		
+		for(int y = k - 1; y >= 0; y--)
+		{
+			for ( int x = 0; x < k; x++)
+			{
+				if(unDealt.get(x).getValue() < unDealt.get(bigInd).getValue())
+				{
+					bigInd = x;
+				}
+			}
+			
+			Cards temp = unDealt.get(y);
+			unDealt.set(y, unDealt.get(bigInd));
+			unDealt.set(bigInd, temp);
+			
+		}
+	}
 	
 }
